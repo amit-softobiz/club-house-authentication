@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user form</title>
+</head>
+<body>
+    <h1>user form</h1>
+ 
+          <!-- <% if(locals.errors) {%>
+          <div class="alert alert-danger">
+            <% errors.forEach(function(error){ %>
+            <li><%= error.message %></li>
+            <% }) %>
+  
+          <% } %> -->
+
+    <form method="POST" action="/users/userform">
+        <lable>Full Name </lable>
+        <input type="text" placeholder="full name" name="fullname"><br><br>
+        <lable>Email</lable>
+        <input type="text" placeholder="Email" name="email"><br><br>
+        <lable>Password </lable>
+        <input type="password" placeholder="Password" name="password"><br><br>
+        <lable>membership_status </lable>
+        <input type="text" placeholder="membership code" name="membership_status"><br><br>
+        <button type="submit">submit</button>
+    </form>
+</body>
+</html>
