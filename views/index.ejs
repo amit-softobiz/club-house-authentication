@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <%- include("./partials/head"); %>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+    <header>
+      <%- include('./partials/header'); %>
+  </header>
+  <div class="container">
+    <div class="jumbtron">
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+  </div>
+  </div>  
+  <footer>
+    <%- include('./partials/footer'); %>
+  </footer>
   </body>
+
+ 
 </html>

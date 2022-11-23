@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <title>user form</title>
-      <%- include("./partials/head"); %>
+    <%- include("./partials/head"); %>
     <style>
-      form {
-        text-align: -webkit-center;
-      }
-    </style>
+        form {
+          text-align: -webkit-center;
+        }
+      </style>
   </head>
   <body>
     <header><%- include('./partials/header'); %></header>
     <div class="center">
-      <h1 style="text-align: center">user form</h1>
+      <h1 style="text-align: center">Login Form</h1>
       <% if(locals.errors) {%>
       <div class="alert alert-danger">
         <% errors.forEach(function(error){ %>
@@ -20,21 +18,7 @@
         <% }) %> <% } %>
       </div>
 
-      <form method="POST" action="/users/userform">
-        <div class="col-6">
-          <div class="form-floating mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="floatingInput"
-              value=""
-              placeholder="full name"
-              name="fullname"
-            />
-            <label for="floatingInput" class="form-label">Full Name </label>
-          </div>
-        </div>
-
+      <form method="POST" action="/users/loginform">
         <div class="col-6">
           <div class="form-floating mb-3">
             <input
@@ -60,23 +44,8 @@
             <label for="floatingInput" class="form-label">Password</label>
           </div>
         </div>
-
-        <div class="col-6">
-          <div class="form-floating mb-3">
-            <input
-              type="password"
-              class="form-control"
-              id="floatingInput"
-              placeholder="confirm password"
-              name="password2"
-            />
-            <label for="floatingInput" class="form-label"
-              >Confirm Password</label
-            >
-          </div>
-        </div>
         <div class="col-6 d-grid">
-          <button class="btn btn-primary" type="submit">Submit</button>
+          <button class="btn btn-primary" type="submit">Log In</button>
         </div>
       </form>
     </div>

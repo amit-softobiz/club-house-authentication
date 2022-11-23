@@ -21,7 +21,8 @@ const userSchema= new Schema({
         // maxLength:50
     },
     membership_status:{
-        type:String
+        type:Boolean,
+        default:false
     }
 })
 
