@@ -9,14 +9,21 @@ exports.userlogin=(req, res)=>{
     res.render("login");
 } 
 
-exports.userloginn = async (req, res, next) => {
-//    try{
-//         let data = await usermodel.find({})
-//    }catch(err){
-//         console.log(err.message);
-//    }
+exports.userloginn = function(req, res) {
+    res.redirect('/');  
+  }
 
-    };
+
+
+
+// async (req, res, next) => {
+// //    try{
+// //         let data = await usermodel.find({})
+// //    }catch(err){
+// //         console.log(err.message);
+// //    }
+
+//     };
 
 
 exports.user =
