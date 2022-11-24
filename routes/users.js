@@ -7,7 +7,7 @@ var router = express.Router();
 
 router.post('/userform',userController.user);
 router.get('/userform',userController.userform);
-router.post('/userform',userController.userloginn);
+router.post('/loginform',userController.userloginn);
 router.get('/loginform',userController.userlogin);
 
 module.exports = router;

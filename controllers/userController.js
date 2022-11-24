@@ -4,71 +4,33 @@ const bcrypt = require("bcryptjs");
 exports.userform = (req, res) => {
     res.render("userform");
 }
+
 exports.userlogin=(req, res)=>{
     res.render("login");
 } 
 
-exports.userloginn = [
-     body("email")
-        .trim()
-        .isEmail()
-        .withMessage("Email must be a valid email")
-        .normalizeEmail()
-        .toLowerCase()
-        .isLength({ min: 10 })
-        .escape(),
-    body("password")
-        .trim()
-        .isLength({ min: 6 })
-        .withMessage("Password length is short, min 6 char is required")
-        .escape(),
-    (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.render("userform", {
-                user: req.body,
-                errors: errors.array(),
-            });
-            return;
-        }
-     
+exports.userloginn = async (req, res, next) => {
+//    try{
+//         let data = await usermodel.find({})
+//    }catch(err){
+//         console.log(err.message);
+//    }
 
-        // const user = new usermodel({
-        //     fullname: req.body.fullname,
-        //     email: req.body.email,
-        //     password: req.body.password,
-        //     membership_status: req.body.membership_status,
-        // });
-        // user.save((err) => {
-        //     if (err) {
-        //         return next(err);
-        //     }
-        //     res.redirect("/");
-        // })
-
-    }];
+    };
 
 
-exports.user = [
+exports.user =
+[
     body("fullname")
         .trim()
-        .isLength({ min: 6 })
-        .escape(),
-        // .isAlphanumeric()
-        // .withMessage("First name has non-alphanumeric characters."),
+        .isLength({ min: 6 }),
     body("email")
-        .trim()
         .isEmail()
-        .withMessage("Email must be a valid email")
-        .normalizeEmail()
-        .toLowerCase()
-        .isLength({ min: 10 })
-        .escape(),
+        .withMessage("Email must be a valid email"),
     body("password")
         .trim()
-        .isLength({ min: 6 })
-        .withMessage("Password length is short, min 6 char is required")
-        .escape(),
+        .isLength({ min: 4 })
+        .withMessage("Password length is short, min 6 char is required"),
     body("password2").custom((value, { req }) => {
         if (value !== req.body.password) {
             throw new Error('password do not match')
@@ -78,15 +40,17 @@ exports.user = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            // res.render("login", {
-            //     user: req.body,
-            //     errors: errors.array(),
-             //}
-            //  );
-            res.redirect("/");
+            console.log("------------",errors);
+            res.render("userform", {
+                user: req.body,
+                errors: errors.array(),
+             }
+             );
+             console.log(errors);
+             res.send();
+            // res.redirect("/users/userform");
             return;
         }
-
         bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
             if (err) {
               console.log("something went wrong with the hashing");
@@ -105,8 +69,6 @@ exports.user = [
                 })
             }
           });
-
-       
     }];
 
   
