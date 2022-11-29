@@ -8,10 +8,10 @@ const passport        = require("passport");
 const LocalStrategy   = require('passport-local').Strategy
 const bcrypt          = require("bcryptjs");
 let mongoose          = require('mongoose');
-const User = require("./models/usermodel");
+const User            = require("./models/usermodel");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter       = require('./routes/index');
+var usersRouter       = require('./routes/users');
 
 var app = express();
 
@@ -28,20 +28,16 @@ passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ username: username }, (err, user) => {
       if (err) {
-          // console.log("hellllo------------1-");
         return done(err);
       }
       if (!user) {
-          // console.log("hellllo------------2-");
         return done(null, false, { message: "Incorrect username" });
       }
 
       bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
-          // console.log("hellllo------------3-");
           return done(null, user)
         } else {
-          // console.log("hellllo------------4-");
           return done(null, false, { message: "Incorrect password" })
         }
       })
@@ -71,7 +67,6 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -79,6 +74,7 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
