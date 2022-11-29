@@ -1,6 +1,21 @@
+
 const usermodel                  = require("../models/usermodel");
 const { body, validationResult } = require("express-validator");
+const passport = require("passport");
 const bcrypt = require("bcryptjs");
+
+
+
+
+//   exports.userloginn = function(req, res) {
+//     passport.authenticate("local", {
+//         successRedirect: "/",
+//         failureRedirect: "/"
+//       })
+//   }
+
+
+
 exports.userform = (req, res) => {
     res.render("userform");
 }
@@ -8,30 +23,15 @@ exports.userform = (req, res) => {
 exports.userlogin=(req, res)=>{
     res.render("login");
 } 
-
-exports.userloginn = function(req, res) {
-    res.redirect('/');  
-  }
+ 
 
 
-
-
-// async (req, res, next) => {
-// //    try{
-// //         let data = await usermodel.find({})
-// //    }catch(err){
-// //         console.log(err.message);
-// //    }
-
-//     };
-
-
-exports.user =
+exports. user =
 [
     body("fullname")
         .trim()
         .isLength({ min: 6 }),
-    body("email")
+    body("username")
         .isEmail()
         .withMessage("Email must be a valid email"),
     body("password")
@@ -64,7 +64,7 @@ exports.user =
             } else {
                     const user = new usermodel({
                     fullname: req.body.fullname,
-                    email: req.body.email,
+                    username: req.body.username,
                     password: hashedPassword,
                    /// membership_status: req.body.membership_status,
                 });

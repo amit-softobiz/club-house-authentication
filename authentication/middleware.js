@@ -1,16 +1,15 @@
-const passport = require("passport");
+// const passport = require("passport");
 
-exports.data = function auth(){
-    return function(req, res, next){
-        passport.authenticate("local", {
-            successRedirect: "",
-            failureRedirect: "/users/userlogin"
-           })
-          return next()
-    }
-}
+// exports.auth = function(req, res, next){
+//         passport.authenticate("local", {
+//             failureRedirect: "/users/userlogin",
+//             failureMessage: true
+//            })
+//            next()
+//     }
 
 
+        // successRedirect: "",
 
 // function authenticationMiddleware () {
 //     return function (req, res, next) {
