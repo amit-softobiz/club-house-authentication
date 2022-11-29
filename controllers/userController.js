@@ -1,18 +1,33 @@
 const { body, validationResult } = require("express-validator");
 const usermodel = require("../models/usermodel");
 const bcrypt = require("bcryptjs");
-
-membershippost = async (req, res)=>{
-  if(req.body===membershipcode){
-  const member = await usermodel.findByIdAndUpdate({_id:req.user._id},{membership_status:true});
-    }else{
-      res.send("not a valid code");
-    }
-    // const updatemember = await usermodel.updateOne()
-}
-membership = (req, res)=>{
+const mongoose = require("mongoose");
+//mongoose.Types.ObjectId(req.params.id.trim());
+membershippost = async (req, res) => {
+  try{
+  const id = mongoose.Types.ObjectId(req.user._id);
+  const membershipsecret = "amitisthebest";
+   if (req.body.membershipcode == membershipsecret) {
+    const member = await usermodel.findByIdAndUpdate(
+      { _id: id },
+      { membership_status: true },
+      (err, result) => {
+        if (err) throw err;
+        console.log("result ",result);
+      }
+    );
+    res.redirect("/users/membership");
+  }else{
+    console.log("your membership is wrong")
+    res.redirect("/")
+  }
+}catch(e){
+  console.log(e.message);
+  res.send(e.message);
+}};
+membership = (req, res) => {
   res.render("membership");
-}
+};
 userform = (req, res) => {
   res.render("userform");
 };
@@ -22,7 +37,10 @@ userlogin = (req, res) => {
 };
 
 user = [
-  body("fullname").trim().isLength({ min: 6 }).withMessage("please enter full name"),
+  body("fullname")
+    .trim()
+    .isLength({ min: 6 })
+    .withMessage("please enter full name"),
   body("username").isEmail().withMessage("Email must be a valid email"),
   body("password")
     .trim()
@@ -69,5 +87,5 @@ module.exports = {
   userlogin,
   user,
   membership,
-  membershippost
+  membershippost,
 };
