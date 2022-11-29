@@ -14,13 +14,19 @@ router.post("/loginform",
 
 router.get('/loginform',userController.userlogin);
 
-router.get('log-out', (req, res)=>{
+router.get('/log-out', (req, res)=>{
+
   req.logout(function (err){
     if(err){
+      console.log("logout in if block ");
       return next(err);
     }
+    console.log("logout in outside if block ");
     res.redirect("/");
-  })
-})
+  });
+});
+
+router.post('/membership',userController.membershippost);
+router.get('/membership',userController.membership);
 
 module.exports = router;

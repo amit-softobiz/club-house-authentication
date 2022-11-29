@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>message form</title>
+  <%- include("./partials/head"); %>
+    <style>
+      form {
+        text-align: -webkit-center;
+      }
+    </style>
+</head>
+
+<body>
+  <header>
+    <%- include('./partials/header'); %>
+  </header>
+  <div class="center">
+    <h1 style="text-align: center">user form</h1>
+    <% if(locals.errors) {%>
+      <div class="alert alert-danger">
+        <% errors.forEach(function(error){ %>
+          <P>
+            <%= error.msg %>
+          </P>
+          <% }) %>
+            <% } %>
+      </div>
+
+      <form method="POST" action="/users/messageform">
+        <div class="col-6">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="title" name="membershipcode" />
+            <label for="floatingInput" class="form-label">Membership Code</label>
+          </div>
+        </div>
+        <div class="col-6 d-grid">
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </form>
+  </div>
+</body>
+<footer>
+  <%- include('./partials/footer'); %>
+</footer>
+
+</html>

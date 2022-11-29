@@ -12,6 +12,39 @@
     <div class="jumbtron">
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    
+    <div>
+      <% if (user) {%> 
+        <h1>WELCOME BACK <%= user.fullname %></h1> 
+        <a href="/users/messageform">add messages</a> 
+        <a href="/users/log-out">LOG OUT</a> 
+
+
+        <div>
+          <%data.forEach((value)=>{%>
+            <div style="background-color:white ;">
+              <p><b><%= value.author %></b></p>
+            <p><%= value.title %></p>
+            <p><%= value.message %></p>
+            <p><%= value.time %></p>
+          </div>
+         <%})%>
+     
+          </div>
+      <% } else { %> 
+        <h1>please log in</h1>
+        <%data.forEach((value)=>{%>
+          <div style="background-color:white ;">
+
+          <p><%= value.message %></p>
+        </div>
+       <%})%>
+   
+          <%}%>
+    </div>
+   
+
+
   </div>
   </div>  
   <footer>

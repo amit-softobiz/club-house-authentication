@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 
 const userSchema= new Schema({
+    admin:{
+        type:Boolean,
+        default:false,
+    },
     fullname:{
         type:String,
         // required:true,
@@ -20,10 +24,10 @@ const userSchema= new Schema({
         // minLength:8,
         // maxLength:50
     },
-    // membership_status:{
-    //     type:Boolean,
-    //     default:false
-    // }
+    membership_status:{
+        type:Boolean,
+        default:false
+    }
 })
 
 module.exports = mongoose.model("user", userSchema);
