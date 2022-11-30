@@ -19,31 +19,37 @@
         
         <a href="/users/messageform">add messages</a> 
         <a href="/users/log-out">LOG OUT</a> 
+       
 
 
         <div>
+          <%if(user.membership_status == true){%>
           <%data.forEach((value)=>{%>
             <div style="background-color:white ;">
               <p><b><%= value.author %></b></p>
-            <p><%= value.title %></p>
-            <p><%= value.message %></p>
-            <p><%= value.time %></p>
+            <p><b>title</b><%= value.title %></p>
+            <p><b>message</b><%= value.message %></p>
+            <p><b>time</b><%= value.time %></p>
                <% if(user.admin == true){ %>
               <form action="/users/delete/<%= value._id %>" method="POST">
                 <button type="submit">delete</button>
               </form>
-            
+              <hr>
             <%}%>
           </div>
          <%})%>
-     
+          <%}else { %>
+            <%data.forEach((value)=>{%>
+              <p><b>message</b><%= value.message %></p>
+            <%})%>
+            <%}%>
           </div>
       <% } else { %> 
         <h1>please log in</h1>
         <%data.forEach((value)=>{%>
           <div style="background-color:white ;">
 
-          <p><%= value.message %></p>
+          <p><b>message</b><%= value.message %></p>
         </div>
        <%})%>
    
