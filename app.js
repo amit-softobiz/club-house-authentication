@@ -12,19 +12,20 @@ const User            = require("./models/usermodel");
 
 var indexRouter       = require('./routes/index');
 var usersRouter       = require('./routes/users');
-var msgRouter       = require('./routes/messageRoutes');
+var msgRouter         = require('./routes/messageRoutes');
 
 var app = express();
 
 const mongoDB = "mongodb+srv://amit:password00@cluster0.4io94xz.mongodb.net/clubhouse?retryWrites=true&w=majority";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-// view engine setup
+db.on("error", console.error.bind(console, "MongoDB connection error:"));  
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }))
+
 passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ username: username }, (err, user) => {
@@ -45,6 +46,7 @@ passport.use(
     });
   })
 );
+
 app.use(logger('dev'));
 app  .use(express.json());
 app.use(express.urlencoded({ extended: false }));

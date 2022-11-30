@@ -15,13 +15,11 @@ router.post("/loginform",
 router.get('/loginform',userController.userlogin);
 
 router.get('/log-out', (req, res)=>{
-
   req.logout(function (err){
     if(err){
       console.log("logout in if block ");
       return next(err);
     }
-    console.log("logout in outside if block ");
     res.redirect("/");
   });
 });

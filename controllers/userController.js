@@ -1,12 +1,13 @@
 const { body, validationResult } = require("express-validator");
-const usermodel = require("../models/usermodel");
-const bcrypt = require("bcryptjs");
-const mongoose = require("mongoose");
+const usermodel                  = require("../models/usermodel");
+const bcrypt                     = require("bcryptjs");
+const mongoose                   = require("mongoose");
+
 membershippost = (req, res) => {
   try {
-    const id = mongoose.Types.ObjectId(req.user._id);
+    const id               = mongoose.Types.ObjectId(req.user._id);
     const membershipsecret = "amitisthebest";
-    const adminsecret = "iamadmin";
+    const adminsecret      = "iamadmin";
     if (req.body.membershipcode == membershipsecret) {
       const member = usermodel.findByIdAndUpdate(
         { _id: id },
@@ -16,7 +17,7 @@ membershippost = (req, res) => {
         }
       );
       res.redirect("/");
-      return
+      return;
     } else if (req.body.membershipcode == adminsecret) {
       const admin = usermodel.findByIdAndUpdate(
         { _id: id },
@@ -26,12 +27,11 @@ membershippost = (req, res) => {
         }
       );
       res.redirect("/");
-      return
+      return;
     } else {
       res.redirect("/users/membership");
     }
   } catch (e) {
-    // console.log("hello ", e.message);
     res.send(e.message);
   }
 };
