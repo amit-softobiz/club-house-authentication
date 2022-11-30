@@ -1,8 +1,8 @@
 const msgmodel = require('../models/messagemodel');
-const { body, validationResult } = require("express-validator");
+// const { body, validationResult } = require("express-validator");
 
 exports.msgform = (req, res) => {
-  console.log("user ", req.username);
+  // console.log("user ", req.username);
     res.render("messageform");
   };
 
@@ -13,7 +13,6 @@ exports.msgpostform =
 // ,
 (req, res, next) => {
     // const {title, message}= req.body;
-    console.log("==222===============", req.user);
     const user = req.user;
       const msg = new msgmodel({
       

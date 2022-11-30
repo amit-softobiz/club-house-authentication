@@ -28,6 +28,12 @@
             <p><%= value.title %></p>
             <p><%= value.message %></p>
             <p><%= value.time %></p>
+               <% if(user.admin == true){ %>
+              <form action="/users/delete/<%= value._id %>" method="POST">
+                <button type="submit">delete</button>
+              </form>
+            
+            <%}%>
           </div>
          <%})%>
      

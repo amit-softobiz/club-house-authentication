@@ -2,34 +2,36 @@ const { body, validationResult } = require("express-validator");
 const usermodel = require("../models/usermodel");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-membershippost = async (req, res) => {
+membershippost = (req, res) => {
   try {
     const id = mongoose.Types.ObjectId(req.user._id);
     const membershipsecret = "amitisthebest";
     const adminsecret = "iamadmin";
     if (req.body.membershipcode == membershipsecret) {
-      const member = await usermodel.findByIdAndUpdate(
+      const member = usermodel.findByIdAndUpdate(
         { _id: id },
         { membership_status: true },
         (err, result) => {
-          if (err) throw err;
+          if (err) return err;
         }
       );
       res.redirect("/");
+      return
     } else if (req.body.membershipcode == adminsecret) {
-      const admin = await usermodel.findByIdAndUpdate(
+      const admin = usermodel.findByIdAndUpdate(
         { _id: id },
         { admin: true },
         (err, result) => {
-          if (err) throw err;
+          if (err) return err;
         }
       );
       res.redirect("/");
+      return
     } else {
       res.redirect("/users/membership");
     }
   } catch (e) {
-    console.log("hello ", e.message);
+    // console.log("hello ", e.message);
     res.send(e.message);
   }
 };
