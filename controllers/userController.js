@@ -2,29 +2,37 @@ const { body, validationResult } = require("express-validator");
 const usermodel = require("../models/usermodel");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-//mongoose.Types.ObjectId(req.params.id.trim());
 membershippost = async (req, res) => {
-  try{
-  const id = mongoose.Types.ObjectId(req.user._id);
-  const membershipsecret = "amitisthebest";
-   if (req.body.membershipcode == membershipsecret) {
-    const member = await usermodel.findByIdAndUpdate(
-      { _id: id },
-      { membership_status: true },
-      (err, result) => {
-        if (err) throw err;
-        console.log("result ",result);
-      }
-    );
-    res.redirect("/users/membership");
-  }else{
-    console.log("your membership is wrong")
-    res.redirect("/")
+  try {
+    const id = mongoose.Types.ObjectId(req.user._id);
+    const membershipsecret = "amitisthebest";
+    const adminsecret = "iamadmin";
+    if (req.body.membershipcode == membershipsecret) {
+      const member = await usermodel.findByIdAndUpdate(
+        { _id: id },
+        { membership_status: true },
+        (err, result) => {
+          if (err) throw err;
+        }
+      );
+      res.redirect("/");
+    } else if (req.body.membershipcode == adminsecret) {
+      const admin = await usermodel.findByIdAndUpdate(
+        { _id: id },
+        { admin: true },
+        (err, result) => {
+          if (err) throw err;
+        }
+      );
+      res.redirect("/");
+    } else {
+      res.redirect("/users/membership");
+    }
+  } catch (e) {
+    console.log("hello ", e.message);
+    res.send(e.message);
   }
-}catch(e){
-  console.log(e.message);
-  res.send(e.message);
-}};
+};
 membership = (req, res) => {
   res.render("membership");
 };
@@ -69,7 +77,6 @@ user = [
           fullname: req.body.fullname,
           username: req.body.username,
           password: hashedPassword,
-          /// membership_status: req.body.membership_status,
         });
         user.save((err) => {
           if (err) {
