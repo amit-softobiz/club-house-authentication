@@ -14,9 +14,11 @@ var indexRouter       = require('./routes/index');
 var usersRouter       = require('./routes/users');
 var msgRouter         = require('./routes/messageRoutes');
 
+require('dotenv').config();
+
 var app = express();
 
-const mongoDB = "mongodb+srv://amit:password00@cluster0.4io94xz.mongodb.net/clubhouse?retryWrites=true&w=majority";
+const mongoDB = process.env.MONGO_ATLAS_URL;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));  

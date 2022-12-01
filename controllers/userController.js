@@ -2,12 +2,13 @@ const { body, validationResult } = require("express-validator");
 const usermodel                  = require("../models/usermodel");
 const bcrypt                     = require("bcryptjs");
 const mongoose                   = require("mongoose");
+require('dotenv').config();
 
 membershippost = (req, res) => {
   try {
     const id               = mongoose.Types.ObjectId(req.user._id);
-    const membershipsecret = "amitisthebest";
-    const adminsecret      = "iamadmin";
+    const membershipsecret = process.env.MEMBER_SECRET;
+    const adminsecret      = process.env.ADMIN_SECRET;
     if (req.body.membershipcode == membershipsecret) {
       const member = usermodel.findByIdAndUpdate(
         { _id: id },
